@@ -48,7 +48,8 @@ public class CDServiceImpl implements CDService{
     }
 
     public String deleteAll() {
-        manager.clear();
+        Query query = manager.createQuery("DELETE FROM CD");
+         query.executeUpdate();
         return "{\"message\": \"cds sucessfully deleted\"}";
     }
 
