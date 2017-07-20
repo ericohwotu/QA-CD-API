@@ -68,7 +68,7 @@ public class CDEndpoint {
     @Produces({"application/json"})
     public String updateCD(@PathParam("api") String api, @PathParam("id") long id, String cd) {
         if (key.checkAPIKey(api))
-            return service.updateCD(id, cd);
+            return service.updateCD(api,id, cd);
         else
             return ERROR_JSON;
     }
@@ -78,7 +78,7 @@ public class CDEndpoint {
     @Produces({"application/json"})
     public String deleteCD(@PathParam("api") String api, @PathParam("id") long id) {
         if (key.checkAPIKey(api))
-            return service.deleteCD(id);
+            return service.deleteCD(api, id);
         else
             return ERROR_JSON;
     }
@@ -96,9 +96,9 @@ public class CDEndpoint {
     @Path("/json/key={api}")
     @POST
     @Produces({"application/json"})
-    public String addCD(@PathParam("api") String api, String movie) {
+    public String addCD(@PathParam("api") String api, String cd) {
         if (key.checkAPIKey(api))
-            return service.addCD(movie);
+            return service.addCD(api, cd);
         else
             return ERROR_JSON;
     }
@@ -106,9 +106,9 @@ public class CDEndpoint {
     @Path("/json/key={api}&multi=true")
     @POST
     @Produces({"application/json"})
-    public String addCDs(@PathParam("api") String api, String movie) {
+    public String addCDs(@PathParam("api") String api, String cd) {
         if (key.checkAPIKey(api))
-            return service.addCDs(movie);
+            return service.addCDs(api, cd);
         else
             return ERROR_JSON;
     }

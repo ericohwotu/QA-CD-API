@@ -4,6 +4,7 @@ package persistance;
  * Created by Eric
  * Edited by Duane
  */
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,45 +23,61 @@ public class CD {
     private String author;
 
 
-    public CD(){}
+    public CD() {
+    }
 
-    public CD(String name, String artist, String genre, String year, String author){
-        this.name =name;
+    public CD(String name, String artist, String genre, String year) {
+        this.name = name;
         this.artist = artist;
         this.genre = genre;
         this.year = year;
-        this.author = author;
     }
 
-    long getID () {
+    public long getID() {
         return iD;
     }
-    void setName (String input) {
+
+    public void setName(String input) {
         name = input;
     }
-    String getName () {
+
+    public String getName() {
         return name;
     }
-    void setArtist (String input) {
+
+    public void setArtist(String input) {
         artist = input;
     }
-    String getArtist () {
+
+    public String getArtist() {
         return artist;
     }
-    void setGenre (String input) {
+
+    public void setGenre(String input) {
         genre = input;
     }
-    String getGenre () {
+
+    public String getGenre() {
         return genre;
     }
-    void setYear (String input) {
+
+    public void setYear(String input) {
         year = input;
     }
-    String getYear () {
+
+    public String getYear() {
         return year;
     }
 
     public String getAuthor() {
         return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setiD(long iD) {
+        this.iD = iD;
     }
 }

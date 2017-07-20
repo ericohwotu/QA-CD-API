@@ -8,11 +8,11 @@ public interface CDService {
 
     String getAllCDs();
 
-    String deleteCD(long id);
+    String deleteCD(String key, long id);
 
-    String updateCD(long id, String str);
+    String updateCD(String key, long id, String str);
 
-    String addCD(String cd);
+    String addCD(String key, String cd);
 
     String getCD(long id);
 
@@ -22,7 +22,7 @@ public interface CDService {
 
     String getCDByGenre(String genre);
 
-    String addCDs(String cd);
+    String addCDs(String key, String cd);
 
     String getCDByYear(String year);
 
