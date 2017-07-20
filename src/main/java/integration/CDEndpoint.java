@@ -51,6 +51,13 @@ public class CDEndpoint {
     }
 
     @Path("/json")
+    @DELETE
+    @Produces({"application/json"})
+    public String deleteAll(){
+        return service.deleteAll();
+    }
+
+    @Path("/json")
     @POST
     @Produces({"application/json"})
     public String addCD(String movie){
