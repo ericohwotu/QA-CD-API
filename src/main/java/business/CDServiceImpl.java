@@ -16,10 +16,11 @@ public class CDServiceImpl implements CDService{
     @PersistenceContext(unitName = "primary")
     private EntityManager manager;
 
-    public Collection<CD> getAllCDs () {
+    public String getAllCDs () {
         Query query = manager.createQuery("SELECT m FROM Movie m");
         Collection<CD> cdList = (Collection<CD>) query.getResultList();
-        return cdList;
+        System.out.println(cdList);
+        return "CD List Printer";
     }
 
     public String deleteCD(int id) {
@@ -31,7 +32,7 @@ public class CDServiceImpl implements CDService{
     }
 
     public String addCD(String cd) {
-        return "";
+        return "CD Added";
     }
 
     public Collection<CD> getCDsByName(String name) {

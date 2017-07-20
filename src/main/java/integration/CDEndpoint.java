@@ -28,6 +28,6 @@ public class CDEndpoint {
     @PUT
     @Produces({"application/json"})
     public String updateCD(){
-
+        return "CD updated";
     }
 }
