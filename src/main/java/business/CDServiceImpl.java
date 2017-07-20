@@ -1,9 +1,11 @@
 package business;
 
 import persistance.CD;
+import util.JSONUtil;
 
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -16,11 +18,13 @@ public class CDServiceImpl implements CDService{
     @PersistenceContext(unitName = "primary")
     private EntityManager manager;
 
+    @Inject
+    private JSONUtil util;
+
     public String getAllCDs () {
-        Query query = manager.createQuery("SELECT m FROM Movie m");
+        Query query = manager.createQuery("SELECT c FROM CD c");
         Collection<CD> cdList = (Collection<CD>) query.getResultList();
-        System.out.println(cdList);
-        return "CD List Printer";
+        return util.getJSONString(cdList);
     }
 
     public String deleteCD(int id) {
@@ -32,7 +36,9 @@ public class CDServiceImpl implements CDService{
     }
 
     public String addCD(String cd) {
-        return "CD Added";
+        CD aCd = util.getObject(cd, CD.class);
+        manager.persist(aCd);
+        return "{\"message\": \"movie sucessfully added\"}";
     }
 
     public Collection<CD> getCDsByName(String name) {

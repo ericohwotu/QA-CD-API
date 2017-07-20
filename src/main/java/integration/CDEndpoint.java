@@ -3,10 +3,7 @@ package integration;
 import business.CDService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 
 /**
  * Created by Administrator on 20/07/2017.
@@ -21,13 +18,28 @@ public class CDEndpoint {
     @GET
     @Produces({"application/json"})
     public String getAllCDs(){
+        System.out.println("this is me printing some stuff");
         return service.getAllCDs();
     }
 
-    @Path("/json")
+    @Path("/json/{id}")
     @PUT
     @Produces({"application/json"})
-    public String updateCD(){
-        return "CD updated";
+    public void updateCD(@PathParam("id") int id){
+        service.updateCD(id);
+    }
+
+    @Path("/json/{id}")
+    @DELETE
+    @Produces({"application/json"})
+    public void deleteCD(@PathParam("id") int id){
+        service.deleteCD(id);
+    }
+
+    @Path("/json")
+    @POST
+    @Produces({"application/json"})
+    public String addCD(String movie){
+        return service.addCD(movie);
     }
 }

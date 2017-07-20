@@ -1,8 +1,13 @@
 package integration;
 
+import javax.ws.rs.core.Application;
+
+import javax.ws.rs.ApplicationPath;
+
 /**
  * Created by Administrator on 20/07/2017.
  */
 
-public class JAXActivator {
+@ApplicationPath("rest")
+public class JAXActivator extends Application {
 }
