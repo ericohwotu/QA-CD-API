@@ -23,15 +23,15 @@ public class CDServiceImpl implements CDService{
     }
 
     public String deleteCD(int id) {
-
+        return "";
     }
 
     public String updateCD(int id) {
-
+        return "";
     }
 
     public String addCD(String cd) {
-
+        return "";
     }
 
     public Collection<CD> getCDsByName(String name) {
