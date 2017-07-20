@@ -6,15 +6,26 @@ import java.util.Collection;
 
 public interface CDService {
 
+    String addCD(String key, String cd);
+
+    String addCDs(String key, String cd);
+
     String getAllCDs();
 
-    String deleteCD(int id);
+    String getCD(long id);
 
-    String updateCD(int id);
+    String getCDByName(String name);
 
-    String addCD(String cd);
+    String getCDByArtist(String title);
 
-    //get cds by different fields
-    Collection<CD> getCDsByName(String name);
-    Collection<CD> getCDByID(int id);
+    String getCDByGenre(String genre);
+
+    String getCDByYear(String year);
+
+    String deleteCD(String key, long id);
+
+    String deleteAll();
+
+    String updateCD(String key, long id, String str);
+
 }
