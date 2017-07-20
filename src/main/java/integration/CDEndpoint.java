@@ -39,7 +39,7 @@ public class CDEndpoint {
     @Path("/json")
     @POST
     @Produces({"application/json"})
-    public void addCD(String movie){
-        service.addCD(movie);
+    public String addCD(String movie){
+        return service.addCD(movie);
     }
 }

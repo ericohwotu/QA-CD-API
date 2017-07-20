@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface CDService {
 
-    Collection<CD> getAllCDs();
+    String getAllCDs();
 
     String deleteCD(int id);
 

@@ -5,18 +5,33 @@ package persistance;
  * Edited by Duane
  */
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class CD {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int iD;
     private String name;
     private String artist;
     private String genre;
     private String year;
 
-    void setID (int input) {
-        iD = input;
+
+    public CD(){
+
     }
+
+    public CD(String name, String artist, String genre, String year){
+        this.name =name;
+        this.artist = artist;
+        this.genre = genre;
+        this.year = year;
+    }
+
     int getID () {
         return iD;
     }
