@@ -18,93 +18,115 @@ public class CDEndpoint {
     @Inject
     private APIKeyService key;
 
+    private static String ERROR_JSON = "{\"Error\":\"API Key not recognised\"}";
+
+
     @Path("/json")
     @GET
     @Produces({"application/json"})
-    public String getAllCDs(){
+    public String getAllCDs() {
         return service.getAllCDs();
     }
 
     @Path("/json/{id : \\d+}")
     @GET
     @Produces({"application/json"})
-    public String getCD(@PathParam("id") long id){
+    public String getCD(@PathParam("id") long id) {
         return service.getCD(id);
     }
 
     @Path("/json/name={name : [A-Za-z][A-Za-z0-9]*}")
     @GET
     @Produces({"application/json"})
-    public String getCDByName(@PathParam("name") String name){
+    public String getCDByName(@PathParam("name") String name) {
         return service.getCDByName(name);
     }
 
     @Path("/json/artist={artist : [A-Za-z][A-Za-z0-9]*}")
     @GET
     @Produces({"application/json"})
-    public String getCDByArtist(@PathParam("artist") String artist){
+    public String getCDByArtist(@PathParam("artist") String artist) {
         return service.getCDByArtist(artist);
     }
 
     @Path("/json/genre={genre : [A-Za-z]*}")
     @GET
     @Produces({"application/json"})
-    public String getCDByGenre(@PathParam("genre") String genre){
+    public String getCDByGenre(@PathParam("genre") String genre) {
         return service.getCDByGenre(genre);
     }
 
     @Path("/json/year={year : [0-9]*}")
     @GET
     @Produces({"application/json"})
-    public String getCDByYear(@PathParam("year") String year){
+    public String getCDByYear(@PathParam("year") String year) {
         return service.getCDByYear(year);
     }
 
-    @Path("/json/{id}")
+    @Path("/json/key={api}&id={id}")
     @PUT
     @Produces({"application/json"})
-    public String updateCD(@PathParam("id") long id, String cd){
-        return service.updateCD(id, cd);
+    public String updateCD(@PathParam("api") String api, @PathParam("id") long id, String cd) {
+        if (key.checkAPIKey(api))
+            return service.updateCD(id, cd);
+        else
+            return ERROR_JSON;
     }
 
-    @Path("/json/{id}")
+    @Path("/json/key={api}&id={id}")
     @DELETE
     @Produces({"application/json"})
-    public String deleteCD(@PathParam("id") long id){
-        return service.deleteCD(id);
+    public String deleteCD(@PathParam("api") String api, @PathParam("id") long id) {
+        if (key.checkAPIKey(api))
+            return service.deleteCD(id);
+        else
+            return ERROR_JSON;
     }
 
-    @Path("/json")
+    @Path("/json/key={api}")
     @DELETE
     @Produces({"application/json"})
-    public String deleteAll(){
-        return service.deleteAll();
+    public String deleteAll(@PathParam("api") String api) {
+        if (key.checkAPIKey(api))
+            return service.deleteAll();
+        else
+            return ERROR_JSON;
     }
 
-    @Path("/json")
+    @Path("/json/key={api}")
     @POST
     @Produces({"application/json"})
-    public String addCD(String movie){
-        return service.addCD(movie);
+    public String addCD(@PathParam("api") String api, String movie) {
+        if (key.checkAPIKey(api))
+            return service.addCD(movie);
+        else
+            return ERROR_JSON;
     }
 
-    @Path("/json/multi")
+    @Path("/json/key={api}&multi=true")
     @POST
     @Produces({"application/json"})
-    public String addCDs(String movie){
-        return service.addCDs(movie);
+    public String addCDs(@PathParam("api") String api, String movie) {
+        if (key.checkAPIKey(api))
+            return service.addCDs(movie);
+        else
+            return ERROR_JSON;
     }
 
     @Path("/key/user={user}")
     @POST
     @Produces({"application/json"})
-    public String getKey(@PathParam("user") String user){
+    public String getKey(@PathParam("user") String user) {
         return key.genAPIKey(user);
     }
+
     @Path("/key/check={key}")
     @GET
     @Produces({"application/json"})
-    public String isKey(@PathParam("key") String api){
+    public String isKey(@PathParam("key") String api) {
         return key.isApiCorrect(api);
     }
+
+
 }
+

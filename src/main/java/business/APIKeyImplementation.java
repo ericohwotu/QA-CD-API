@@ -46,7 +46,7 @@ public class APIKeyImplementation implements APIKeyService {
     }
 
     public boolean checkAPIKey(String key){
-        Query query = manager.createQuery("SELECT c FROM CD c WHERE apiKey='"+key+"'");
+        Query query = manager.createQuery("SELECT c FROM APIKey c WHERE apiKey='"+key+"'");
         Collection<APIKey> cdList = (Collection<APIKey>) query.getResultList();
 
         if (cdList.isEmpty())

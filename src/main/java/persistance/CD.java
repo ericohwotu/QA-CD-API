@@ -19,17 +19,17 @@ public class CD {
     private String artist;
     private String genre;
     private String year;
+    private String author;
 
 
-    public CD(){
+    public CD(){}
 
-    }
-
-    public CD(String name, String artist, String genre, String year){
+    public CD(String name, String artist, String genre, String year, String author){
         this.name =name;
         this.artist = artist;
         this.genre = genre;
         this.year = year;
+        this.author = author;
     }
 
     long getID () {
@@ -60,4 +60,7 @@ public class CD {
         return year;
     }
 
+    public String getAuthor() {
+        return author;
+    }
 }
