@@ -20,7 +20,4 @@ public interface CDService {
 
     String deleteAll();
 
-    //get cds by different fields
-    Collection<CD> getCDsByName(String name);
-    Collection<CD> getCDByID(int id);
 }

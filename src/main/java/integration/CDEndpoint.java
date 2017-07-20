@@ -1,5 +1,6 @@
 package integration;
 
+import business.APIKeyService;
 import business.CDService;
 
 import javax.inject.Inject;
@@ -13,6 +14,9 @@ public class CDEndpoint {
 
     @Inject
     private CDService service;
+
+    @Inject
+    private APIKeyService key;
 
     @Path("/json")
     @GET
@@ -62,5 +66,12 @@ public class CDEndpoint {
     @Produces({"application/json"})
     public String addCD(String movie){
         return service.addCD(movie);
+    }
+
+    @Path("/key/user={user}")
+    @POST
+    @Produces({"application/json"})
+    public String getKey(@PathParam("user") String user){
+        return key.genAPIKey(user);
     }
 }

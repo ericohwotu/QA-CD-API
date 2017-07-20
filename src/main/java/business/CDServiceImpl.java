@@ -49,7 +49,7 @@ public class CDServiceImpl implements CDService{
 
     public String deleteAll() {
         Query query = manager.createQuery("DELETE FROM CD");
-         query.executeUpdate();
+        query.executeUpdate();
         return "{\"message\": \"cds sucessfully deleted\"}";
     }
 
@@ -74,11 +74,4 @@ public class CDServiceImpl implements CDService{
         return manager.find(CD.class, id);
     }
 
-    public Collection<CD> getCDsByName(String name) {
-        return null;
-    }
-
-    public Collection<CD> getCDByID(int id) {
-        return null;
-    }
 }
