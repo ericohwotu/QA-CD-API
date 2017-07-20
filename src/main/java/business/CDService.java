@@ -16,7 +16,15 @@ public interface CDService {
 
     String getCD(long id);
 
-    String getCD(String name);
+    String getCDByName(String name);
+
+    String getCDByArtist(String title);
+
+    String getCDByGenre(String genre);
+
+    String addCDs(String cd);
+
+    String getCDByYear(String year);
 
     String deleteAll();
 

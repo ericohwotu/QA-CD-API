@@ -33,8 +33,26 @@ public class CDServiceImpl implements CDService{
         return util.getJSONString(cdList);
     }
 
-    public String getCD(String name){
+    public String getCDByName(String name){
         Query query = manager.createQuery("SELECT c FROM CD c WHERE name='"+name+"'");
+        Collection<CD> cdList = (Collection<CD>) query.getResultList();
+        return util.getJSONString(cdList);
+    }
+
+    public String getCDByArtist(String name){
+        Query query = manager.createQuery("SELECT c FROM CD c WHERE artist='"+name+"'");
+        Collection<CD> cdList = (Collection<CD>) query.getResultList();
+        return util.getJSONString(cdList);
+    }
+
+    public String getCDByGenre(String genre){
+        Query query = manager.createQuery("SELECT c FROM CD c WHERE genre='"+genre+"'");
+        Collection<CD> cdList = (Collection<CD>) query.getResultList();
+        return util.getJSONString(cdList);
+    }
+
+    public String getCDByYear(String year){
+        Query query = manager.createQuery("SELECT c FROM CD c WHERE year='"+year+"'");
         Collection<CD> cdList = (Collection<CD>) query.getResultList();
         return util.getJSONString(cdList);
     }
@@ -68,6 +86,14 @@ public class CDServiceImpl implements CDService{
         CD aCd = util.getObject(cd, CD.class);
         manager.persist(aCd);
         return "{\"message\": \"cd sucessfully added\"}";
+    }
+
+    public String addCDs(String cd) {
+        CD[] cds = util.getObject(cd, CD[].class);
+        for (CD aCd: cds)
+            manager.persist(aCd);
+
+        return "{\"message\": \"cds sucessfully added\"}";
     }
 
     private CD findCd(Long id) {
