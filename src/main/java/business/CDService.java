@@ -14,6 +14,12 @@ public interface CDService {
 
     String addCD(String cd);
 
+    String getCD(long id);
+
+    String getCD(String name);
+
+    String deleteAll();
+
     //get cds by different fields
     Collection<CD> getCDsByName(String name);
     Collection<CD> getCDByID(int id);

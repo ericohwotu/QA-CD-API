@@ -27,12 +27,29 @@ public class CDServiceImpl implements CDService{
         return util.getJSONString(cdList);
     }
 
+    public String getCD(long id){
+        Query query = manager.createQuery("SELECT c FROM CD c WHERE iD="+id);
+        Collection<CD> cdList = (Collection<CD>) query.getResultList();
+        return util.getJSONString(cdList);
+    }
+
+    public String getCD(String name){
+        Query query = manager.createQuery("SELECT c FROM CD c WHERE name='"+name+"'");
+        Collection<CD> cdList = (Collection<CD>) query.getResultList();
+        return util.getJSONString(cdList);
+    }
+
     public String deleteCD(long id) {
         CD movieInDB = findCd(id);
         if (movieInDB != null) {
             manager.remove(movieInDB);
         }
-        return "{\"message\": \"movie sucessfully deleted\"}";
+        return "{\"message\": \"cd sucessfully deleted\"}";
+    }
+
+    public String deleteAll() {
+        manager.clear();
+        return "{\"message\": \"cds sucessfully deleted\"}";
     }
 
     public String updateCD(long id, String data) {
@@ -43,13 +60,13 @@ public class CDServiceImpl implements CDService{
         if (cdInDB != null) {
             manager.merge(cdToUpdate);
         }
-        return "{\"message\": \"movie sucessfully updated\"}";
+        return "{\"message\": \"cd sucessfully updated\"}";
     }
 
     public String addCD(String cd) {
         CD aCd = util.getObject(cd, CD.class);
         manager.persist(aCd);
-        return "{\"message\": \"movie sucessfully added\"}";
+        return "{\"message\": \"cd sucessfully added\"}";
     }
 
     private CD findCd(Long id) {

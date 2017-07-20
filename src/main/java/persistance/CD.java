@@ -14,7 +14,7 @@ public class CD {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int iD;
+    private long iD;
     private String name;
     private String artist;
     private String genre;
@@ -32,7 +32,7 @@ public class CD {
         this.year = year;
     }
 
-    int getID () {
+    long getID () {
         return iD;
     }
     void setName (String input) {
