@@ -27,18 +27,33 @@ public class CDServiceImpl implements CDService{
         return util.getJSONString(cdList);
     }
 
-    public String deleteCD(int id) {
-        return "";
+    public String deleteCD(long id) {
+        CD movieInDB = findCd(id);
+        if (movieInDB != null) {
+            manager.remove(movieInDB);
+        }
+        return "{\"message\": \"movie sucessfully deleted\"}";
     }
 
-    public String updateCD(int id) {
-        return "";
+    public String updateCD(long id, String data) {
+
+        CD cdToUpdate = util.getObject(data, CD.class);
+        CD cdInDB = findCd(id);
+
+        if (cdInDB != null) {
+            manager.merge(cdToUpdate);
+        }
+        return "{\"message\": \"movie sucessfully updated\"}";
     }
 
     public String addCD(String cd) {
         CD aCd = util.getObject(cd, CD.class);
         manager.persist(aCd);
         return "{\"message\": \"movie sucessfully added\"}";
+    }
+
+    private CD findCd(Long id) {
+        return manager.find(CD.class, id);
     }
 
     public Collection<CD> getCDsByName(String name) {

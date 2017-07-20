@@ -25,15 +25,15 @@ public class CDEndpoint {
     @Path("/json/{id}")
     @PUT
     @Produces({"application/json"})
-    public void updateCD(@PathParam("id") int id){
-        service.updateCD(id);
+    public String updateCD(@PathParam("id") long id, String cd){
+        return service.updateCD(id, cd);
     }
 
     @Path("/json/{id}")
     @DELETE
     @Produces({"application/json"})
-    public void deleteCD(@PathParam("id") int id){
-        service.deleteCD(id);
+    public String deleteCD(@PathParam("id") long id){
+        return service.deleteCD(id);
     }
 
     @Path("/json")

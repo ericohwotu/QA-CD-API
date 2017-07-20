@@ -8,9 +8,9 @@ public interface CDService {
 
     String getAllCDs();
 
-    String deleteCD(int id);
+    String deleteCD(long id);
 
-    String updateCD(int id);
+    String updateCD(long id, String str);
 
     String addCD(String cd);
 
