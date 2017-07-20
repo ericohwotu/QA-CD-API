@@ -74,4 +74,10 @@ public class CDEndpoint {
     public String getKey(@PathParam("user") String user){
         return key.genAPIKey(user);
     }
+    @Path("/key/check={key}")
+    @GET
+    @Produces({"application/json"})
+    public String isKey(@PathParam("key") String api){
+        return key.isApiCorrect(api);
+    }
 }

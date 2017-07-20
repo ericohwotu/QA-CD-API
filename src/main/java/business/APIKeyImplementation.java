@@ -8,6 +8,8 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.Collection;
 
 /**
  * Created by Administrator on 20/07/2017.
@@ -37,23 +39,29 @@ public class APIKeyImplementation implements APIKeyService {
     @Override
     public String genAPIKey(String user){
         String json = "{\"user\":\"" + user + "\",";
-        json +=  "\"apiKey\":\"" + getKey(16) + "\"}";
+        json +=  "\"apiKey\":\"" + getKey(32) + "\"}";
         APIKey aKey = util.getObject(json, APIKey.class);
         manager.persist(aKey);
         return json;
     }
 
     public boolean checkAPIKey(String key){
-        if (manager.find(APIKey.class, key) == null)
+        Query query = manager.createQuery("SELECT c FROM CD c WHERE apiKey='"+key+"'");
+        Collection<APIKey> cdList = (Collection<APIKey>) query.getResultList();
+
+        if (cdList.isEmpty())
             return false;
         else
             return true;
     }
 
     public String isApiCorrect(String key){
-        if (manager.find(APIKey.class, key) == null)
+        Query query = manager.createQuery("SELECT c FROM APIKey c WHERE apiKey='"+key+"'");
+        Collection<APIKey> cdList = (Collection<APIKey>) query.getResultList();
+
+        if (cdList.isEmpty())
             return "{\"messahe\":\"false\"}";
         else
-            return "{\"messahe\":\"else\"}";
+            return "{\"messahe\":\"true\"}";
     }
 }

@@ -7,4 +7,5 @@ package business;
 public interface APIKeyService {
     String genAPIKey(String user);
     boolean checkAPIKey(String key);
+    String isApiCorrect(String key);
 }
