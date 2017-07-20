@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/stylesheets.css" rel="stylesheet" type="text/css">
+
+    <head>
+        <title>Eric and Duane CD Lookup</title>
+    </head>
+
+    <body>
+        <!-- Start of top bar for navigation -->
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container"> <!-- Ensures that all the following information is formatted inside of the navigation bar so when the browser is resized, it will be contained -->
+                <div class="nav-header">
+                    <a class="navbar-brand" href="index.html">CD System</a> <!-- Creates the logo area, can probably be replaced with an image -->
+                </div>
+            </div>
+        </div>
+        <!-- End of top bar -->
+        <div id="coupledList">
+            
+            <span id="viewPort" class="infobox">
+                ""
+            </span>
+
+            <span id="cdList" class="infobox">
+                    <span style="padding-left: 20px; padding-top: 10px">Filter by Album Name: <input type="text" id="filByName"></span>
+                    <span style="padding-left: 20px; padding-top: 10px">Filter by Artist: <input type="text" id="filByArt"></span>
+                    <button onclick="butClick()">Submit</button>
+                    <table data-toggle="table" data-height="600" class="table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th data-field="iD">ID</th>
+                                <th data-field="name">Album Name</th>
+                                <th data-field="artist">Artist Name</th>
+                                <th data-field="genre">Genre</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableContents"></tbody>
+                    </table>
+            </span>
+        </div>
+    </body>
+</html>

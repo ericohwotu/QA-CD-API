@@ -3,6 +3,7 @@ package integration;
 import business.CDService;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.*;
 
 /**
