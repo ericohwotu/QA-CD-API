@@ -92,7 +92,7 @@ public class CDServiceImpl implements CDService {
 
         if (cdInDB != null) {
 
-            if(cdInDB.getAuthor()!=key)
+            if(cdInDB.getAuthor().equals(key))
                 return ERROR_JSON;
 
             manager.merge(cdToUpdate);
