@@ -11,11 +11,11 @@ public interface CDService {
 
     String getAllCDs();
 
-    void deleteCD(CD cd);
+    void deleteCD(int id);
 
-    void updateCD();
+    void updateCD(int id);
 
-    void addCD(CD cd);
+    void addCD(String cd);
 
     //get cds by different fields
     Collection<CD> getCDsByName(String name);
