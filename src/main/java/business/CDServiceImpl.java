@@ -26,6 +26,7 @@ public class CDServiceImpl implements CDService {
     private APIKeyService apiService;
 
     private static String ERROR_JSON = "{\"Error\":\"You do not have permission to perform this action\"}";
+    private static String NO_ARTWORK = "http://d3u67r7pp2lrq5.cloudfront.net/product_photos/30619921/pompeya-real-vinyl-mock_400w.jpg";
 
     public String getAllCDs() {
         Query query = manager.createQuery("SELECT c FROM CD c");
@@ -71,18 +72,17 @@ public class CDServiceImpl implements CDService {
 
     public String deleteCD(String key, long id) {
         CD cdInDB = findCd(id);
-        try {
-            if (cdInDB != null) {
 
-                if (!cdInDB.getAuthor().equals(key))
-                    return ERROR_JSON;
+        if (cdInDB != null) {
 
-                manager.remove(cdInDB);
-            }
+            if (!cdInDB.getAuthor().equals(key))
+                return ERROR_JSON;
+
+            manager.remove(cdInDB);
             return "{\"message\": \"cd sucessfully deleted\"}";
-        } catch (Exception e) {
-            return util.getJSONString(cdInDB);
         }
+        return "{\"Error\": \"Cd of that id doesn't exist\"}";
+
     }
 
     public String deleteAll() {
@@ -103,32 +103,36 @@ public class CDServiceImpl implements CDService {
                 return ERROR_JSON;
 
             cdToUpdate.setiD(cdInDB.getID());
-            if(cdToUpdate.getAuthor()==null)
+            if (cdToUpdate.getAuthor() == null)
                 cdToUpdate.setAuthor(cdInDB.getAuthor());
 
-            if(cdToUpdate.getArtist()==null)
+            if (cdToUpdate.getArtist() == null)
                 cdToUpdate.setArtist(cdInDB.getArtist());
 
-            if(cdToUpdate.getYear()==null)
+            if (cdToUpdate.getYear() == null)
                 cdToUpdate.setYear(cdInDB.getYear());
 
-            if(cdToUpdate.getName()==null)
+            if (cdToUpdate.getName() == null)
                 cdToUpdate.setName(cdInDB.getName());
 
-            if(cdToUpdate.getAlbumArt()==null)
+            if (cdToUpdate.getAlbumArt() == null)
                 cdToUpdate.setAlbumArt(cdInDB.getAlbumArt());
 
-            if(cdToUpdate.getGenre()==null)
+            if (cdToUpdate.getGenre() == null)
                 cdToUpdate.setGenre(cdInDB.getGenre());
 
             manager.merge(cdToUpdate);
+
+            return "{\"message\": \"cd sucessfully updated\"}";
         }
-        return "{\"message\": \"cd sucessfully updated\"}";
+        return "{\"Error\": \"Cd of that id doesn't exist\"}";
+
     }
 
     public String addCD(String key, String cd) {
         CD aCd = util.getObject(cd, CD.class);
         aCd.setAuthor(key);
+        if(aCd.getAlbumArt()==null)aCd.setAlbumArt(NO_ARTWORK);
         manager.persist(aCd);
         return "{\"message\": \"cd sucessfully added\"}";
     }
@@ -137,6 +141,7 @@ public class CDServiceImpl implements CDService {
         CD[] cds = util.getObject(cd, CD[].class);
         for (CD aCd : cds) {
             aCd.setAuthor(key);
+            if(aCd.getAlbumArt()==null)aCd.setAlbumArt(NO_ARTWORK);
             manager.persist(aCd);
         }
         return "{\"message\": \"cds sucessfully added\"}";
@@ -158,8 +163,8 @@ public class CDServiceImpl implements CDService {
             cd.setAuthor(author);
         }
 
-        if(jsonString.length()>1)
-            jsonString = jsonString.substring(0,jsonString.length()-1);
+        if (jsonString.length() > 1)
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
 
         jsonString += "]";
 
