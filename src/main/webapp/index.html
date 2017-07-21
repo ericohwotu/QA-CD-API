@@ -29,20 +29,30 @@
                     <img src="https://upload.wikimedia.org/wikipedia/en/f/f9/Jarofhearts.jpg" alt="Album Art" align="middle" class="albumArt" id="albumArt">
                     <div>
                         <div>
-                            <span class="col-sm-6">Album Name: <input type="text" id="formAlbum"></span>
-                            <span class="col-sm-6">Artist Name: <input type="text" id="formArtist"></span>
+                            <span class="col-sm-6">Album Name: <br><input type="text" id="formAlbum"></span>
+                            <span class="col-sm-6">Artist Name: <br><input type="text" id="formArtist"></span>
                         </div>
                         <br><br>
                         <div>
-                            <span class="col-sm-6">Genre: <input type="text" id="formGenre"></span>
-                            <span class="col-sm-6">Year: <input type="text" id="formYear"></span>
+                            <span class="col-sm-6">Genre: <br><input type="text" id="formGenre"></span>
+                            <span class="col-sm-6">Year: <br><input type="text" id="formYear"></span>
                         </div>
                     </div>
+                    <dir class="col-sm-12">
+                        Album URL:<br><input type="text" style="width:100%" id="urlBox">
+                    </dir>
                     <br><br><br><br><br><br><br>
                     <dir align="right">
                         <span><button id="createButton" onclick="startCreateAlbum()">Create Album</button></span>
                         <span><button id="submitButton" onclick="submitPress()">Submit Changes</button></span>
+                        <div><button id="deleteButton" onclick="deletePress()">Delete Selection</button></div>
+                    </dir><br><br><br><br>
+
+                    <dir class="APIKEY col-sm-12">
+                        API Key:<br>
+                        <input type="text" style="width:100%" id="apiKeyBox">
                     </dir>
+
                 </div>
 
                 <div class="divider col-sm-1"></div>
@@ -60,14 +70,7 @@
                                 <th data-field="genre">Genre</th>
                             </tr>
                         </thead>
-                        <tbody id="tableContents">
-                            <!--<tr>-->
-                                <!--<td>ID</td>-->
-                                <!--<td>Album Name</td>-->
-                                <!--<td>Artist Name</td>-->
-                                <!--<td>Genre</td>-->
-                            <!--</tr>-->
-                        </tbody>
+                        <tbody id="tableContents"></tbody>
                     </table>
                 </div>
 

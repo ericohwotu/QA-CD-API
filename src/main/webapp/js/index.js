@@ -1,8 +1,10 @@
 window.onload = function() {
     populateTable("http://localhost:8080/EESample/rest/cd/json");
     checkSize();
-    getApiKey();
     $(document).on("click", "#tableContents > tr ", populateForm);
+    var apiBox = document.getElementById("apiKeyBox");
+    apiBox.value = "None set";
+    getApiKey();
 }
 
 var apiKey = "";
@@ -19,7 +21,8 @@ function getApiKey () {
             returnedApiKey = returnAPI["apiKey"];
             console.log(returnedApiKey);
             apiKey = returnedApiKey;
-            console.log("API Key set")
+            console.log("API Key set");
+            document.getElementById("apiKeyBox").value = apiKey;
         }
     }
     xhttpGET.open("POST", "http://localhost:8080/EESample/rest/cd/key/user=system", true);
@@ -79,6 +82,10 @@ function populateForm(e) {
             genre.value = retVal[0]["genre"];
             var year = document.getElementById("formYear");
             year.value = retVal[0]["year"];
+            var artUrl = document.getElementById("urlBox");
+            artUrl.value = retVal[0]["albumArt"];
+            var artImg = document.getElementById("albumArt");
+            artImg.src = retVal[0]["albumArt"];
             selected = true;
         }
     }
@@ -135,14 +142,17 @@ function startCreateAlbum () {
 }
 
 function submitPress () {
+    apiKey = document.getElementById("apiKeyBox").value;
     var album = document.getElementById("formAlbum");
     var artist = document.getElementById("formArtist");
     var genre = document.getElementById("formGenre");
     var year = document.getElementById("formYear");
+    var art = document.getElementById("urlBox");
+    console.log(art.value)
 
     if(!creating) {
         if(selected) {
-            var sendData = {"name":""+album.value+"", "artist":""+artist.value+"", "genre":""+genre.value+"", "year":""+year.value+""};
+            var sendData = {"name":""+album.value+"", "artist":""+artist.value+"", "genre":""+genre.value+"", "year":""+year.value+"", "albumArt":""+art.value+""};
 
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -155,14 +165,17 @@ function submitPress () {
                 }
             }
             console.log(sendData);
-            xhttp.open("PUT", "http://localhost:8080/EESample/rest/cd/json/key="+apiKey+"&iD="+ID, true);
+            xhttp.open("PUT", "http://localhost:8080/EESample/rest/cd/json/key="+apiKey+"&id="+ID, true);
             xhttp.send(JSON.stringify(sendData));
         }
     } else {
         if(album.value != "" && artist.value != "" && genre.value != "" && year.value != "") {
-
-            var sendData = {"name":""+album.value+"", "artist":""+artist.value+"", "genre":""+genre.value+"", "year":""+year.value+""};
-
+            var sendData = {};
+            if(art.value=="") {
+                sendData = {"name":""+album.value+"", "artist":""+artist.value+"", "genre":""+genre.value+"", "year":""+year.value+""};
+            } else {
+                sendData = {"name":""+album.value+"", "artist":""+artist.value+"", "genre":""+genre.value+"", "year":""+year.value+"", "albumArt":""+art.value+""};
+            }
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if(this.readyState == 4 && this.status == 200) {
@@ -182,5 +195,21 @@ function submitPress () {
          } else {
             window.alert("All fields are required to have an input.")
          }
+    }
+}
+
+function deletePress () {
+    if(selected) {
+        var xhttpDEL = new XMLHttpRequest();
+        xhttpDEL.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200) {
+                window.alert("Album has been deleted");
+                populateTable("http://localhost:8080/EESample/rest/cd/json");
+            }
+        }
+        xhttpDEL.open("DELETE", "http://localhost:8080/EESample/rest/cd/json/key="+apiKey+"&id="+ID);
+        xhttpDEL.send();
+    } else {
+        window.alert("Nothing selected");
     }
 }
