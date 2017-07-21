@@ -20,7 +20,7 @@ public class CDEndpoint {
 
     private static String ERROR_JSON = "{\"Error\":\"API Key not recognised\"}";
 
-
+    //=============================================   GET   ==========================================//
     @Path("/json")
     @GET
     @Produces({"application/json"})
@@ -63,6 +63,7 @@ public class CDEndpoint {
         return service.getCDByYear(year);
     }
 
+    //=============================================   Update   ==========================================//
     @Path("/json/key={api}&id={id}")
     @PUT
     @Produces({"application/json"})
@@ -73,6 +74,7 @@ public class CDEndpoint {
             return ERROR_JSON;
     }
 
+    //=============================================  DELETE   ==========================================//
     @Path("/json/key={api}&id={id}")
     @DELETE
     @Produces({"application/json"})
@@ -93,6 +95,7 @@ public class CDEndpoint {
             return ERROR_JSON;
     }
 
+    //=============================================   ADD CD   ==========================================//
     @Path("/json/key={api}")
     @POST
     @Produces({"application/json"})
@@ -113,6 +116,7 @@ public class CDEndpoint {
             return ERROR_JSON;
     }
 
+    //=============================================   ADD API   ==========================================//
     @Path("/key/user={user}")
     @POST
     @Produces({"application/json"})
@@ -120,6 +124,7 @@ public class CDEndpoint {
         return key.genAPIKey(user);
     }
 
+    //=============================================   NO KEY ERROR   ======================================//
     @Path("/json")
     @POST
     @Produces({"application/json"})
@@ -141,12 +146,13 @@ public class CDEndpoint {
         return "{\"Error\":\"API Key required\"}";
     }
 
-    @Path("/key/check={key}")
-    @GET
-    @Produces({"application/json"})
-    public String isKey(@PathParam("key") String api) {
-        return key.isApiCorrect(api);
-    }
+    //=============================================   Query Key   ==========================================//
+//    @Path("/key/check={key}")
+//    @GET
+//    @Produces({"application/json"})
+//    public String isKey(@PathParam("key") String api) {
+//        return key.isApiCorrect(api);
+//    }
 
 
 }
