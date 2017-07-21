@@ -21,7 +21,7 @@ public class CDEndpoint {
 
     private static String ERROR_JSON = "{\"Error\":\"API Key not recognised\"}";
 
-
+    //=============================================   GET   ==========================================//
     @Path("/json")
     @GET
     @Produces({"application/json"})
@@ -36,21 +36,21 @@ public class CDEndpoint {
         return service.getCD(id);
     }
 
-    @Path("/json/name={name : [A-Za-z][A-Za-z0-9]*}")
+    @Path("/json/name={name}")
     @GET
     @Produces({"application/json"})
     public String getCDByName(@PathParam("name") String name) {
         return service.getCDByName(name);
     }
 
-    @Path("/json/artist={artist : [A-Za-z][A-Za-z0-9]*}")
+    @Path("/json/artist={artist}")
     @GET
     @Produces({"application/json"})
     public String getCDByArtist(@PathParam("artist") String artist) {
         return service.getCDByArtist(artist);
     }
 
-    @Path("/json/genre={genre : [A-Za-z]*}")
+    @Path("/json/genre={genre}")
     @GET
     @Produces({"application/json"})
     public String getCDByGenre(@PathParam("genre") String genre) {
@@ -64,6 +64,7 @@ public class CDEndpoint {
         return service.getCDByYear(year);
     }
 
+    //=============================================   Update   ==========================================//
     @Path("/json/key={api}&id={id}")
     @PUT
     @Produces({"application/json"})
@@ -74,6 +75,7 @@ public class CDEndpoint {
             return ERROR_JSON;
     }
 
+    //=============================================  DELETE   ==========================================//
     @Path("/json/key={api}&id={id}")
     @DELETE
     @Produces({"application/json"})
@@ -94,6 +96,7 @@ public class CDEndpoint {
             return ERROR_JSON;
     }
 
+    //=============================================   ADD CD   ==========================================//
     @Path("/json/key={api}")
     @POST
     @Produces({"application/json"})
@@ -114,6 +117,7 @@ public class CDEndpoint {
             return ERROR_JSON;
     }
 
+    //=============================================   ADD API   ==========================================//
     @Path("/key/user={user}")
     @POST
     @Produces({"application/json"})
@@ -121,12 +125,35 @@ public class CDEndpoint {
         return key.genAPIKey(user);
     }
 
-    @Path("/key/check={key}")
-    @GET
+    //=============================================   NO KEY ERROR   ======================================//
+    @Path("/json")
+    @POST
     @Produces({"application/json"})
-    public String isKey(@PathParam("key") String api) {
-        return key.isApiCorrect(api);
+    public String postNoKeyError() {
+        return "{\"Error\":\"API Key required\"}";
     }
+
+    @Path("/json")
+    @PUT
+    @Produces({"application/json"})
+    public String putNoKeyError() {
+        return "{\"Error\":\"API Key required\"}";
+    }
+
+    @Path("/json")
+    @DELETE
+    @Produces({"application/json"})
+    public String deleteNoKeyError() {
+        return "{\"Error\":\"API Key required\"}";
+    }
+
+    //=============================================   Query Key   ==========================================//
+//    @Path("/key/check={key}")
+//    @GET
+//    @Produces({"application/json"})
+//    public String isKey(@PathParam("key") String api) {
+//        return key.isApiCorrect(api);
+//    }
 
 
 }
