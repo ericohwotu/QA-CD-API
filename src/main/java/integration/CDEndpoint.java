@@ -35,21 +35,21 @@ public class CDEndpoint {
         return service.getCD(id);
     }
 
-    @Path("/json/name={name : [A-Za-z ][A-Za-z0-9 ]*}")
+    @Path("/json/name={name}")
     @GET
     @Produces({"application/json"})
     public String getCDByName(@PathParam("name") String name) {
         return service.getCDByName(name);
     }
 
-    @Path("/json/artist={artist : [A-Za-z ][A-Za-z0-9 ]*}")
+    @Path("/json/artist={artist}")
     @GET
     @Produces({"application/json"})
     public String getCDByArtist(@PathParam("artist") String artist) {
         return service.getCDByArtist(artist);
     }
 
-    @Path("/json/genre={genre : [A-Za-z ]*}")
+    @Path("/json/genre={genre}")
     @GET
     @Produces({"application/json"})
     public String getCDByGenre(@PathParam("genre") String genre) {
@@ -118,6 +118,13 @@ public class CDEndpoint {
     @Produces({"application/json"})
     public String getKey(@PathParam("user") String user) {
         return key.genAPIKey(user);
+    }
+
+    @Path("/json")
+    @POST
+    @Produces({"application/json"})
+    public String noKeyError() {
+        return "{\"Error\":\"API Key required\"}";
     }
 
     @Path("/key/check={key}")

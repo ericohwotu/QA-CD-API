@@ -21,12 +21,13 @@ public class CD {
     private String genre;
     private String year;
     private String author;
+    private String albumArt;
 
 
     public CD() {
     }
 
-    public CD(String name, String artist, String genre, String year) {
+    public CD(String name, String artist, String genre, String year, String image) {
         this.name = name;
         this.artist = artist;
         this.genre = genre;
@@ -79,5 +80,13 @@ public class CD {
 
     public void setiD(long iD) {
         this.iD = iD;
+    }
+
+    public String getAlbumArt() {
+        return albumArt;
+    }
+
+    public void setAlbumArt(String albumArt) {
+        this.albumArt = albumArt;
     }
 }
