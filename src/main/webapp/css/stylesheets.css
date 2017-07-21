@@ -52,6 +52,7 @@ body {
     background: #999999;
     display: inline-block;
     width: 45%;
+    overflow-y: scroll;
 }
 #coupledList {
     display: run-in;
