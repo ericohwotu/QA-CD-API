@@ -35,21 +35,21 @@ public class CDEndpoint {
         return service.getCD(id);
     }
 
-    @Path("/json/name={name : [A-Za-z][A-Za-z0-9]*}")
+    @Path("/json/name={name : [A-Za-z ][A-Za-z0-9 ]*}")
     @GET
     @Produces({"application/json"})
     public String getCDByName(@PathParam("name") String name) {
         return service.getCDByName(name);
     }
 
-    @Path("/json/artist={artist : [A-Za-z][A-Za-z0-9]*}")
+    @Path("/json/artist={artist : [A-Za-z ][A-Za-z0-9 ]*}")
     @GET
     @Produces({"application/json"})
     public String getCDByArtist(@PathParam("artist") String artist) {
         return service.getCDByArtist(artist);
     }
 
-    @Path("/json/genre={genre : [A-Za-z]*}")
+    @Path("/json/genre={genre : [A-Za-z ]*}")
     @GET
     @Produces({"application/json"})
     public String getCDByGenre(@PathParam("genre") String genre) {
