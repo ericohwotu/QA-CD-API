@@ -123,7 +123,21 @@ public class CDEndpoint {
     @Path("/json")
     @POST
     @Produces({"application/json"})
-    public String noKeyError() {
+    public String postNoKeyError() {
+        return "{\"Error\":\"API Key required\"}";
+    }
+
+    @Path("/json")
+    @PUT
+    @Produces({"application/json"})
+    public String putNoKeyError() {
+        return "{\"Error\":\"API Key required\"}";
+    }
+
+    @Path("/json")
+    @DELETE
+    @Produces({"application/json"})
+    public String deleteNoKeyError() {
         return "{\"Error\":\"API Key required\"}";
     }
 
